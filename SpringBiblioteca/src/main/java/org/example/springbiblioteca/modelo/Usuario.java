@@ -2,7 +2,9 @@ package org.example.springbiblioteca.modelo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -34,6 +36,10 @@ public class Usuario {
 
     @Column(name = "penalizacion_hasta")
     private LocalDate penalizacionHasta;
+
+    // Relación opcional con préstamos
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Prestamo> prestamos;
 
     // Getters y setters
 
@@ -91,5 +97,13 @@ public class Usuario {
 
     public void setPenalizacionHasta(LocalDate penalizacionHasta) {
         this.penalizacionHasta = penalizacionHasta;
+    }
+
+    public Set<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public void setPrestamos(Set<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
 }

@@ -16,6 +16,7 @@ public class usuarioController {
     private final usuarioService usuarioService;
 
     public usuarioController (usuarioService usuarioService){
+
         this.usuarioService = usuarioService;
     }
 

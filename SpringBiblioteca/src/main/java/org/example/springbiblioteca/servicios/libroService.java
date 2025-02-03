@@ -2,6 +2,7 @@ package org.example.springbiblioteca.servicios;
 
 import org.example.springbiblioteca.modelo.Libro;
 import org.example.springbiblioteca.repositorios.LibroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Optional;
 public class libroService {
 
     private final LibroRepository libroRepository;
-
+    @Autowired
     public libroService(LibroRepository libroRepository) {
         this.libroRepository = libroRepository;
     }
