@@ -10,12 +10,18 @@ import jakarta.validation.constraints.NotBlank;
 public class Libro {
 
     @Id
+    @NotNull(message = "ISBN no puede ser nulo")
+    @Pattern(regexp = "^(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]{1}$", message = "El formato del ISBN no es válido")
     private String isbn;
 
-    @NotBlank(message = "El título es obligatorio")
+    @NotNull(message = "El título no puede ser nulo")
+    @Size(max = 255, message = "El título no puede exceder los 255 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9\\sáéíóúÁÉÍÓÚñÑ]+$", message = "El título solo puede contener caracteres alfanuméricos y acentos")
     private String titulo;
 
-    @NotBlank(message = "El autor es obligatorio")
+    @NotNull(message = "El autor no puede ser nulo")
+    @Size(max = 255, message = "El autor no puede exceder los 255 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9\\sáéíóúÁÉÍÓÚñÑ]+$", message = "El autor solo puede contener caracteres alfanuméricos y acentos")
     private String autor;
 
     // Getters y setters
