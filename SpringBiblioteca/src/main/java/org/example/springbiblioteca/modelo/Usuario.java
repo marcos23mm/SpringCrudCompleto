@@ -20,18 +20,23 @@ public class Usuario {
 
     @NotBlank(message = "El nombre es obligatorio")
     @Column(name = "nombre", length = 100, nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "El nombre solo puede contener caracteres alfanuméricos")
     private String nombre;
 
     @NotBlank(message = "El email es obligatorio")
     @Column(name = "email", unique = true, length = 100, nullable = false)
+    @Email(message = "El correo electrónico debe ser válido y terminar en '@gmail.com'")
+    @Pattern(regexp = "^[A-Za-z0-9]{1,50}@gmail\\.com$", message = "Solo se permiten correos de tipo Gmail")
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
     @Column(name = "password", length = 255, nullable = false)
+    @Length(min = 8, max = 12, message = "La contraseña debe tener entre 8 y 12 caracteres")
     private String password;
 
     @NotBlank(message = "El tipo es obligatorio")
     @Column(name = "tipo", nullable = false)
+     @Pattern(regexp = "^(normal|administrador)$", message = "El tipo solo puede ser 'normal' o 'administrador'")
     private String tipo;
 
     @Column(name = "penalizacion_hasta")
