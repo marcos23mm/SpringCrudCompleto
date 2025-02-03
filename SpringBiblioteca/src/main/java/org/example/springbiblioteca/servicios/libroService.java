@@ -1,6 +1,6 @@
 package org.example.springbiblioteca.servicios;
 
-import org.example.springbiblioteca.modelo.libro;
+import org.example.springbiblioteca.modelo.Libro;
 import org.example.springbiblioteca.repositorios.LibroRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +16,20 @@ public class libroService {
         this.libroRepository = libroRepository;
     }
 
-    public List<libro> obtenerTodos() {
+    public List<Libro> obtenerTodos() {
         return libroRepository.findAll();
     }
 
-    public Optional<libro> obtenerPorIsbn(String isbn) {
+    public Optional<Libro> obtenerPorIsbn(String isbn) {
         return libroRepository.findById(isbn);
     }
 
-    public libro guardar(libro libro) {
+    public Libro guardar(Libro libro) {
         return libroRepository.save(libro);
     }
 
     public void eliminar(String isbn) {
         libroRepository.deleteById(isbn);
     }
+
 }

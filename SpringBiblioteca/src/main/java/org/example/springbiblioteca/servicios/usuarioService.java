@@ -2,7 +2,7 @@ package org.example.springbiblioteca.servicios;
 
 
 import jakarta.transaction.Transactional;
-import org.example.springbiblioteca.modelo.usuario;
+import org.example.springbiblioteca.modelo.Usuario;
 import org.example.springbiblioteca.repositorios.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +18,27 @@ public class usuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<usuario> obtenerTodos(){
+    public List<Usuario> obtenerTodos(){
+
         return usuarioRepository.findAll();
     }
 
-    public Optional<usuario> obtenerUsuarioPorDni(String dni){
+    public Optional<Usuario> obtenerUsuarioPorDni(String dni){
+
         return usuarioRepository.findByDni(dni);
     }
 
-    public usuario guardar(usuario usuario){
+    public Usuario guardar(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
     ////////////////
+
     @Transactional
     public void eliminar(String dni){
+
         usuarioRepository.deleteByDni(dni);
     }
+
+
 
 }

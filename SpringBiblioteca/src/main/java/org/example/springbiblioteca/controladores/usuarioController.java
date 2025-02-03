@@ -1,6 +1,6 @@
 package org.example.springbiblioteca.controladores;
 
-import org.example.springbiblioteca.modelo.usuario;
+import org.example.springbiblioteca.modelo.Usuario;
 import org.example.springbiblioteca.servicios.usuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,31 +21,31 @@ public class usuarioController {
 
     //Obtener usuarios
     @GetMapping
-    public List<usuario> listar(){
+    public List<Usuario> listar(){
         return usuarioService.obtenerTodos();
     }
 
 
     // Nuevo endpoint para buscar un usuario por DNI
     @GetMapping("/dni/{dni}")
-    public ResponseEntity<usuario> obtenerPorDni(@PathVariable String dni) {
-        Optional<usuario> usuario = usuarioService.obtenerUsuarioPorDni(dni);
+    public ResponseEntity<Usuario> obtenerPorDni(@PathVariable String dni) {
+        Optional<Usuario> usuario = usuarioService.obtenerUsuarioPorDni(dni);
         return usuario.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     //Crear usuario
     @PostMapping
-    public ResponseEntity<usuario> crear(@RequestBody usuario usuario) {
-        usuario usuarioNuevo = usuarioService.guardar(usuario);
+    public ResponseEntity<Usuario> crear(@RequestBody Usuario usuario) {
+        Usuario usuarioNuevo = usuarioService.guardar(usuario);
         return ResponseEntity.ok(usuarioNuevo);
     }
 
     //Actualizar usuario
     @PutMapping("/{dni}")
-    public ResponseEntity<usuario> actualizar(@PathVariable String dni, @RequestBody usuario usuario) {
+    public ResponseEntity<Usuario> actualizar(@PathVariable String dni, @RequestBody Usuario usuario) {
         // Buscar el usuario existente por DNI
-        Optional<usuario> usuarioOptional = usuarioService.obtenerUsuarioPorDni(dni);
+        Optional<Usuario> usuarioOptional = usuarioService.obtenerUsuarioPorDni(dni);
 
         if (!usuarioOptional.isPresent()) {
             // Si no existe, se devuelve 404 Not Found
@@ -53,7 +53,7 @@ public class usuarioController {
         }
 
         // Se obtiene el usuario existente desde la base de datos
-        usuario usuarioExistente = usuarioOptional.get();
+        Usuario usuarioExistente = usuarioOptional.get();
 
         // Actualizar los campos del usuario existente con los valores del objeto recibido
         // Se deja el DNI y el ID sin modificar para que se mantenga la identificación
@@ -64,7 +64,7 @@ public class usuarioController {
         usuarioExistente.setPenalizacionHasta(usuario.getPenalizacionHasta());
 
         // Se guarda el usuario actualizado en la base de datos
-        usuario usuarioGuardado = usuarioService.guardar(usuarioExistente);
+        Usuario usuarioGuardado = usuarioService.guardar(usuarioExistente);
 
         // Se devuelve el usuario actualizado con una respuesta 200 OK
         return ResponseEntity.ok(usuarioGuardado);
